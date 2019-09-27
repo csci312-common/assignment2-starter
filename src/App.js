@@ -41,7 +41,7 @@ const mapFromArticleList = articles => {
 
 function App() {
   // state variable holding the current article collection
-  const [collection, loadCollection] = useState(new Map());
+  const [collection, loadCollection] = useState(Immutable.Map());
 
   // create an effect hook that is only run once to load the collection into the component's state
   useEffect(() => {
