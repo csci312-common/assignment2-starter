@@ -1,5 +1,6 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
+import Immutable from 'immutable';
 
 import { mapFromArticleList } from '../App';
 import IndexBar from './IndexBar';
@@ -36,7 +37,7 @@ const collection = mapFromArticleList(articles);
 
 describe('IndexBar initialization', () => {
   test('Handles empty array without error', () => {
-    shallow(<IndexBar collection={new Map()} select={jest.fn} />);
+    shallow(<IndexBar collection={Immutable.Map} select={jest.fn} />);
   });
 });
 
