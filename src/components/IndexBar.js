@@ -4,12 +4,11 @@
   a list of the available titles in that current section.
 
   props:
-    collection: A Map of articles keyed by section
+    collection: An array of articles
     select: A callback when article is selected
 */
 
 import React, { useState } from 'react';
-
 
 const IndexBar = undefined;
 export default IndexBar;

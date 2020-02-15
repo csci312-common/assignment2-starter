@@ -1,8 +1,6 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
-import Immutable from 'immutable';
 
-import { mapFromArticleList } from '../App';
 import IndexBar from './IndexBar';
 
 const articles = [
@@ -33,11 +31,10 @@ const articles = [
     edited: '2017-05-08'
   }
 ];
-const collection = mapFromArticleList(articles);
 
 describe('IndexBar initialization', () => {
   test('Handles empty array without error', () => {
-    shallow(<IndexBar collection={Immutable.Map} select={jest.fn} />);
+    shallow(<IndexBar collection={[]} select={jest.fn} />);
   });
 });
 
@@ -47,16 +44,14 @@ describe('IndexBar title bar', () => {
   let listBar;
 
   beforeEach(() => {
-    listBar = mount(<IndexBar collection={collection} select={jest.fn} />);
+    listBar = mount(<IndexBar collection={articles} select={jest.fn} />);
   });
 
   test('Renders sorted section list', () => {
     expect(listBar).toContainExactlyOneMatchingElement('div#section-list');
 
     const sectionList = listBar.find('div#section-list li');
-    expect(sectionList.map(li => li.text())).toEqual(
-      Array.from(collection.keys()).sort()
-    );
+    expect(sectionList.map(li => li.text())).toEqual(['A', 'C', 'D']);
   });
 });
 
@@ -70,9 +65,7 @@ describe('IndexBar actions', () => {
 
     // We need to 'mount' instead of 'shallow' to ensure child components are rendered and
     // we can interact with the DOM. Use our mock callback to test it is invoked correctly.
-    listBar = mount(
-      <IndexBar collection={collection} select={selectCallback} />
-    );
+    listBar = mount(<IndexBar collection={articles} select={selectCallback} />);
   });
 
   test('Changes section on click', () => {
@@ -89,11 +82,10 @@ describe('IndexBar actions', () => {
 
     // Grab titles list
     const titleList = lists.at(1);
-    expect(titleList.children().map(li => li.text())).toEqual(
-      Array.from(collection.get('D'))
-        .map(article => article.title)
-        .sort()
-    );
+    expect(titleList.children().map(li => li.text())).toEqual([
+      'Dalek',
+      'Dominators'
+    ]);
   });
 
   test('Shows article on click', () => {

@@ -28,7 +28,7 @@ The AirBnB rules do not integrate smoothly with the current version of CRA. Thus
 To ensure consistent style we use the CRA-recommended [Prettier](https://github.com/prettier/prettier) package. We installed it with
 
 ```
-npm install --save-dev husky lint-staged prettier
+npm install --save-dev husky lint-staged prettier eslint-config-prettier
 ```
 
 and added the recommended configuration to automatically reformat code during the commit. That is whenever you commit your code, Prettier will automatically reformat your code during the commit process (as a "hook").

@@ -1,12 +1,10 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
 
-import App, { mapFromArticleList } from './App';
+import App from './App';
 import IndexBar from './components/IndexBar';
 import Article from './components/Article';
 import data from './seed.json';
-
-const collection = mapFromArticleList(data);
 
 describe('App shallow rendering tests', () => {
   let app;
@@ -42,7 +40,7 @@ describe('App full rendering tests', () => {
 
   describe('IndexBar tests', () => {
     test('IndexBar receives collection and callback as prop', () => {
-      expect(app.find(IndexBar)).toHaveProp('collection', collection);
+      expect(app.find(IndexBar)).toHaveProp('collection', data);
       expect(app.find(IndexBar)).toHaveProp('select'); // Should be a function
     });
   });
@@ -62,7 +60,7 @@ describe('App full rendering tests', () => {
     });
 
     test('Article should have article as its prop', () => {
-      const article = collection.get('I').find(val => val.title === 'Ikoga');
+      const article = data.find(val => val.title === 'Ikoga');
       expect(app.find(Article)).toHaveProp('article', article);
     });
 
